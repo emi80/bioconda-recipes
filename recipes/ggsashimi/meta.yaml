@@ -1,0 +1,43 @@
+{% set name = "ggsashimi" %}
+{% set version = "0.5.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/guigolab/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: c2fa43ba81eec74e258fca1f92dc54a279acd40278c53f647d1613a7b789e972
+
+build:
+  number: 0
+  noarch: generic
+
+requirements:
+  run:
+    - python
+    - samtools
+    - r-base
+    - r-ggplot2
+    - r-gridextra
+    - r-data.table
+    - r-svglite
+
+test:
+  source_files:
+    - examples
+  commands:
+    - sashimi-plot.py --help
+    - sashimi-plot.py -b examples/input_bams.tsv -c chr10:27040584-27048100
+
+about:
+  home: https://github.com/guigolab/ggsashimi
+  license: GPLv3
+  license_file: LICENSE
+  summary: Command-line tool for the visualization of splicing events across multiple samples
+
+extra:
+  maintainers:
+    - emi80
+  identifiers:
+    - doi:10.1371/journal.pcbi.1006360
